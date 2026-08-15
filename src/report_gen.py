@@ -95,6 +95,8 @@ def main():
     # ---------- Header ----------
     A(Paragraph("Surgical Tool Detection with Semi-Supervised Learning", S["TitleBig"]))
     A(Paragraph("Computer Vision &mdash; Surgical Applications, HW1", S["Sub"]))
+    A(Paragraph("Authors: Raz Ben-Aharon and Shalev Manassen (shalevmanassen@gmail.com)",
+               S["Sub"]))
 
     # ---------- 1. EDA ----------
     A(Paragraph("1. Exploratory Data Analysis", S["H"]))

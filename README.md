@@ -7,6 +7,8 @@ surgery video using **semi-supervised learning (SSL) with pseudo-labels**.
 
 Course: Computer Vision — Surgical Applications, HW1.
 
+Authors: Raz Ben-Aharon and Shalev Manassen (shalevmanassen@gmail.com).
+
 ## Method (overview)
 
 1. **Baseline** — fine-tune a COCO-pretrained YOLO (`yolo11s`) on the 61 labeled
