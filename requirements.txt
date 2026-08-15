@@ -1,0 +1,15 @@
+# Core
+ultralytics==8.4.104
+opencv-python>=4.8
+numpy>=1.24
+matplotlib>=3.7
+pandas>=2.0
+seaborn>=0.12
+reportlab>=4.0
+
+# PyTorch — install a build matching your CUDA driver.
+# The course A10 VM reports CUDA 12.8, so install the cu128 wheels:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+# (CPU-only: pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu)
+torch>=2.4
+torchvision>=0.19

@@ -1,0 +1,11 @@
+# YOLO dataset config for the labeled surgical-tool images.
+# Paths are on the course GPU VM. `path` is the dataset root; train/val are
+# relative to it.
+path: /home/student/hw1/labeled_image_data
+train: images/train
+val: images/val
+
+names:
+  0: Empty
+  1: Tweezers
+  2: Needle_driver

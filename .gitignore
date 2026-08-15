@@ -1,0 +1,24 @@
+# weights & large artifacts (host separately, link in README)
+weights/
+deliverables/
+*.pt
+*.mp4
+
+# training runs / datasets (regenerate via REPRODUCE.md)
+runs/
+runs_sanity/
+datasets/
+
+# report build artifacts (keep the final PDF if you want it in-repo)
+reports/eda/
+reports/curves/
+reports/*.jpg
+reports/metrics.json
+# Superseded local report copy (may be open in a PDF viewer).
+reports/HW1_report.pdf
+
+# python
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
