@@ -29,8 +29,7 @@ Authors: Raz Ben-Aharon and Shalev Manassen.
 | + ID pseudo-labels (ssl_id) | 763 | 0.978 | 0.926 | 0.986 | 0.837 |
 | + OOD pseudo-labels (ssl_ood) | 1430 | 0.954 | 0.889 | 0.971 | 0.792 |
 
-*Validation metrics above are computed on the cleaned validation set (2 confirmed
-annotation artifacts removed; see report §2.1). The supervised Baseline was
+*Validation metrics above are computed on the cleaned validation set after removing two confirmed annotation artifacts. The supervised Baseline was
 selected as the final model because naive pseudo-label self-training degraded
 OOD video performance through confirmation bias, despite improving some ID
 validation metrics.*

@@ -13,7 +13,7 @@ Run on the VM inside the venv, e.g.:
   python src/eda.py \
       --data /home/student/hw1/labeled_image_data \
       --videos /datashare/HW1 \
-      --out reports/eda
+      --out tmp/eda
 """
 import argparse
 import json
@@ -252,7 +252,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default="/home/student/hw1/labeled_image_data")
     ap.add_argument("--videos", default="/datashare/HW1")
-    ap.add_argument("--out", default="reports/eda")
+    ap.add_argument("--out", default="tmp/eda")
     args = ap.parse_args()
 
     data_root = Path(args.data)
