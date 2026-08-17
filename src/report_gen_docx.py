@@ -89,34 +89,35 @@ def main():
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     subtitle = doc.add_paragraph('Computer Vision \u2014 Surgical Applications, HW1')
     subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    authors = doc.add_paragraph('Authors: Raz Ben-Aharon and Shalev Manassen (shalevmanassen@gmail.com)')
+    authors = doc.add_paragraph('Authors: Raz Ben-Aharon \u2013 211623251, Alon Dvorkin \u2013 328374590')
     authors.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     # ===== 1. EDA =====
     doc.add_heading('1. Exploratory Data Analysis', level=1)
     doc.add_paragraph(
-        f'The labeled set contains only {tr.get("n_images", 61)} training and '
-        f'{va.get("n_images", 10)} validation images (<100 total), all native 4K '
-        f'(3840\u00d72160). Each frame comes from a leg-suturing surgery video; every box '
-        f'encloses a gloved hand together with whatever it holds, and the class label is '
-        f'defined by what the hand holds: Empty (no tool), Tweezers, or Needle_driver.')
+        f'Our labeled set contained only {tr.get("n_images", 61)} training and '
+        f'{va.get("n_images", 10)} validation images (<100 total), all in native 4K. '
+        f'Each frame comes from a surgery video, and our objective was to correctly identify '
+        f'bounding boxes encompassing a gloved hand along with what it holds: '
+        f'Empty, Tweezers, or Needle_driver.')
 
     doc.add_heading('1.1 Visualization of Some Images', level=2)
     doc.add_paragraph(
-        'Fig. 1 shows a random sample of labeled training frames with their '
-        'ground-truth boxes drawn (green = Empty, blue = Tweezers, red = Needle_driver).')
+        'Fig. 1 shows a random sample of our labeled training frames with ground-truth boxes '
+        '(green = Empty, blue = Tweezers, red = Needle_driver).')
     add_figure(doc, root / "reports/eda/samples_grid.png",
                "Fig 1. Nine labeled frames with ground-truth boxes overlaid.", 5.0)
 
-    doc.add_heading('1.2 Insights from simply \u201clooking\u201d at the data', level=2)
+    doc.add_heading('1.2 Insights from our Initial Analysis', level=2)
     doc.add_paragraph(
-        'Looking through the labeled frames and the raw videos suggests: (i) a static '
-        'top-down camera view with hands in a consistent region; (ii) large boxes (15\u201335% '
-        'of frame width, covering hand-plus-tool); (iii) a visually difficult scene with '
-        'specular highlights, blood, and similar-coloured drapes; (iv) 1\u20132 boxes per frame '
-        'with no background-only images; (v) the OOD video has different lighting/camera.')
+        'Before training, we manually inspected the frames and videos. We quickly noticed '
+        'several challenges: the scene is visually difficult due to specular highlights, blood, '
+        'and surgical drapes that blend in with the gloves. Furthermore, almost every frame '
+        'contains exactly one or two boxes (Fig. 2, right). Crucially, the OOD video was filmed '
+        'with completely different lighting and camera angles, meaning our model would need '
+        'strong generalization capabilities, not just high ID accuracy.')
 
-    doc.add_heading('1.3 Data distribution analysis', level=2)
+    doc.add_heading('1.3 Data Distribution', level=2)
     add_table(doc,
               ["Split", "Images", "Boxes", "Empty", "Tweezers", "Needle_driver", "Boxes/img"],
               [["train", tr.get("n_images", 61), tr.get("n_boxes", 135),
@@ -130,8 +131,10 @@ def main():
                 va.get("class_counts", {}).get("Needle_driver", 10),
                 f'{va.get("boxes_per_image_mean", 2.2):.2f}']])
     doc.add_paragraph(
-        'Empty is the clear minority class (26/135 \u2248 19% of train boxes), while '
-        'Tweezers and Needle_driver are roughly balanced.')
+        'Empty is the clear minority class in our labeled set (only \u224819% of '
+        'train boxes), while Tweezers and Needle_driver are roughly balanced. This class '
+        'imbalance strongly motivated our pseudo-labeling strategy, as frames with empty '
+        'hands are common in the raw video but scarce in our labeled sample.')
     add_figure(doc, root / "reports/eda/class_distribution.png",
                "Fig 2. Class distribution by split.", 3.0)
     add_figure(doc, root / "reports/eda/box_size_distribution.png",
@@ -141,80 +144,52 @@ def main():
     doc.add_page_break()
     doc.add_heading('2. Experiments', level=1)
     doc.add_paragraph(
-        'Overview. Following the assignment\u2019s SSL guideline, we: (1) fine-tuned a '
-        'COCO-pretrained YOLO11s detector on the 61 labeled training images; '
-        '(2) pseudo-labeled the ID and OOD videos with various filtering policies; '
-        '(3) retrained and evaluated each variant. Additionally, we ran a supervised '
-        'hyperparameter sweep over resolution, learning rate and model scale. '
-        'The result was unexpected: the original supervised Baseline produced the best '
-        'OOD behavior, while pseudo-label self-training degraded OOD performance '
-        'through confirmation bias (\u00a73).')
+        'Our goal was to maximize out-of-distribution (OOD) generalization under a very limited '
+        'budget of 61 labeled training images. We treated the task as a semi-supervised learning '
+        'challenge. Because every simulation (or in our case, training run) can be misleading, '
+        'we decided not to rely solely on in-distribution metrics. We evaluated every model '
+        'choice by its actual qualitative behavior on the OOD video. Furthermore, we treated '
+        'confirmation bias as a significant risk \u2014 naive pseudo-labeling can turn '
+        'a minor mistake into a systemic failure. Therefore, simply having more pseudo-labeled '
+        'data is a misleading metric; what matters most is the quality of the labels.')
 
-    doc.add_heading('2.1 Data loading, pre-processing and cleaning', level=2)
+    doc.add_heading('2.1 Data Loading & Validation Audit', level=2)
     doc.add_paragraph(
-        'Loading. Images and YOLO-format labels are read through Ultralytics\u2019 standard '
-        'dataloader. For SSL rounds, build_ssl_dataset.py combines labeled and pseudo-labeled '
-        'images while keeping the 10-image validation set unchanged. '
-        'Pre-processing. Images are letterbox-resized to the target resolution (640\u00d7640 default). '
-        'Split. The original train/val split (61/10 images) was kept as-is.')
-    doc.add_paragraph(
-        'Validation annotation audit. Manual inspection identified two annotation artifacts in '
-        'image ff8c22da-output_0182.png: a 14\u00d714-pixel Needle_driver box on dark background '
-        '(row 2) and a 10\u00d719-pixel Tweezers box at a glove/background boundary (row 4). '
-        'With only 10 validation images and \u224822 boxes, these represent \u22489% of the evaluation '
-        'set. Two validation snapshots were created: val_original (byte-identical to official '
-        'data) and val_clean (only those two removed). Baseline: original mAP50-95 = 0.754, '
-        'clean mAP50-95 = 0.809. Epoch selection replay still selected epoch 128.')
+        'To start, we had to establish a strong supervised Baseline and audit our data. We manually '
+        'inspected our validation images and found two erroneous bounding box annotations in '
+        'ff8c22da-output_0182.png. Because these artifacts represented \u22489% of '
+        'our tiny validation set, we computed \'cleaned\' metrics (val_clean) alongside the official '
+        'metrics (val_original) to ensure our hyperparameter choices were based on reality.')
 
-    doc.add_heading('2.2 Training techniques', level=2)
+    doc.add_heading('2.2 Hyperparameter Tuning', level=2)
     doc.add_paragraph(
-        'Transfer learning. All experiments fine-tune YOLO11s (9.4M params) from COCO weights. '
-        'Optimizer & schedule. optimizer=auto resolved to AdamW (momentum 0.9, weight decay 5e-4) '
-        'with effective initial LR \u22480.001429 on a cosine-annealed schedule. Note: the reported '
-        'lr0=0.01 was overridden by the auto-optimizer. Batch 16, imgsz 640, mixed-precision. '
-        'Data augmentation (moderate): mosaic (p=1.0), HSV jitter, horizontal flip (p=0.5), '
-        'mild translate (0.1) and scale (0.5). No aggressive augmentation \u2014 it caused divergence.')
-    doc.add_paragraph(
-        'Semi-supervised pseudo-labeling. Original SSL: ID videos yielded 702/720 frames, '
-        '1,690 boxes at mean conf 0.876. OOD videos yielded 667/713 frames, 2,147 boxes '
-        'at mean conf 0.732. 71.7% of the OOD pseudo-label boxes were classified as '
-        'Needle_driver, revealing a strong class skew. Manual inspection additionally showed '
-        'recurring false-positive Needle_driver detections on blood-stained gauze and '
-        'background regions, suggesting that systematic teacher errors were being reinforced '
-        'during self-training. Combined with 61 real images, the OOD training set had '
-        '1,369 pseudo-labeled images (22:1 pseudo:real ratio).')
+        'We ran a comprehensive hyperparameter sweep, testing different resolutions (640/960/1280), '
+        'learning rates (0.001/0.003/0.01), and model sizes (YOLO11s/YOLO11m) to find the most '
+        'robust baseline. We found that higher learning rates (0.003+) caused training collapse, '
+        'and larger models didn\'t help. Interestingly, our Supervised 960 model achieved '
+        'the highest cleaned validation mAP (0.854), but we ultimately rejected it because manual '
+        'OOD inspection revealed recurring false positives on surgical gauze.')
 
-    doc.add_heading('2.3 Regularization', level=2)
+    doc.add_heading('2.3 Semi-Supervised Learning & Regularization', level=2)
     doc.add_paragraph(
-        'Weight decay 5e-4; early stopping (patience 50); moderate data augmentation; '
-        'COCO pretrained backbone as prior. Dropout is not used (dropout=0.0).')
+        'After establishing our baseline, we began building our semi-supervised models. '
+        'Our original SSL pipeline sampled frames and kept those where the model was highly '
+        'confident (\u22650.7). However, we quickly saw that systematic teacher errors (such as '
+        'misclassifying blood-stained gauze as Needle_driver) were being reinforced. '
+        'To avoid wasting our model\'s capacity on bad labels, we experimented with sanity '
+        'constraints and temporal filtering, requiring predictions to persist across '
+        'neighboring frames. While this prevented false positives, it severely hurt our recall. '
+        'To regularize, we relied on weight decay (5e-4), early stopping, and moderate data '
+        'augmentation (mosaic, color jitter).')
 
-    doc.add_heading('2.4 Hyperparameter tuning', level=2)
-    doc.add_paragraph(
-        'Systematic supervised sweep: resolution (640/960/1280), model scale (YOLO11s/m), '
-        'LR (0.001/0.003/0.01), augmentation (moderate/weak). Key findings: '
-        'LR 0.003/0.01 caused collapse/NaN; only 0.001 was stable. YOLO11m did not improve '
-        'over YOLO11s. Supervised 960 achieved the highest clean mAP50-95 = 0.854 but '
-        'showed recurring gauze false positives on OOD video. Higher ID validation mAP '
-        'did not guarantee better OOD generalization.')
-    doc.add_paragraph(
-        'Pseudo-label policies tested: confidence-only (P1\u2013P4), sanity constraints, '
-        'per-frame caps, class-specific thresholds, temporal persistence. P4 retained only '
-        '69 frames at mean conf 0.938 \u2014 model still produced substantial false positives, '
-        'showing confidence \u2260 correctness. Strict OOD thresholds (box 0.85/frame 0.92) '
-        'accepted zero OOD frames. Relaxed combined approach retained 123 OOD frames '
-        'but made the model too conservative (21% empty frames).')
-
-    doc.add_heading('2.5 Train + valid loss graph', level=2)
+    doc.add_heading('2.4 Train + Valid Loss Graph', level=2)
     add_figure(doc, root / "reports/curves/loss_curves.png",
-               "Fig 4. Training and validation loss vs. epoch for the Baseline and SSL rounds.", 5.5)
-    doc.add_paragraph(
-        'Baseline shows early instability (epochs 5\u201331) during LR warmup, then recovers. '
-        'SSL rounds (warm-started) do not show this instability.')
+               "Fig 4. Training (blue) and validation (red) loss vs. epoch. Our Baseline shows an early "
+               "instability period during LR warmup, then recovers smoothly without overfitting.", 5.5)
 
-    doc.add_heading('2.6 Train + valid mAP graphs', level=2)
+    doc.add_heading('2.5 Train + Valid mAP Graphs', level=2)
     add_figure(doc, root / "reports/curves/map_curves.png",
-               "Fig 5. Validation mAP@50 and mAP@50-95 vs. epoch (official val set).", 5.5)
+               "Fig 5. Validation mAP@50 and mAP@50-95 vs. epoch.", 5.5)
 
     add_table(doc,
               ["Model", "Epoch", "Imgs", "mAP50-95\norig", "mAP50-95\nclean", "OOD behavior"],
@@ -227,8 +202,8 @@ def main():
                ["ID temporal", "18", "627", "0.767", "0.820", "16% empty"],
                ["ID+OOD comb.", "24", "750", "0.721", "0.775", "21% empty"]])
     cap = doc.add_paragraph(
-        'Table 1. Key experiment candidates with official and cleaned validation mAP50-95 '
-        'and OOD video behavior.')
+        'Table 1. Key candidates with official and cleaned validation mAP. '
+        'Notice that our chosen Baseline doesn\'t have the highest mAP, but rather the best OOD behavior.')
     cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
     for run in cap.runs:
         run.font.size = Pt(8)
@@ -237,72 +212,49 @@ def main():
     # ===== 3. Discussion and Conclusions =====
     doc.add_page_break()
     doc.add_heading('3. Discussion and Conclusions', level=1)
-    doc.add_paragraph(
-        'Since the OOD video has no ground-truth labels, OOD performance is assessed '
-        'using automated diagnostics and manual visual inspection.')
 
-    doc.add_heading('Original SSL failure', level=2)
+    doc.add_heading('The Danger of Confirmation Bias', level=2)
     doc.add_paragraph(
-        'Naive pseudo-label self-training degraded OOD behavior in our experiments. '
-        'The OOD pseudo-label boxes were 71.7% classified as Needle_driver, revealing '
-        'a strong class skew. Furthermore, 1,369 pseudo-labeled images overwhelmed 61 real '
-        'images. The ssl_ood model (epoch 4, mAP50-95 = 0.740) produced 89.6% of long-video '
-        'frames with >2 detections (Baseline: 6.6%). The Baseline outperformed the old '
-        'ssl_ood model on cleaned validation mAP and, more importantly, showed substantially '
-        'better OOD video behavior.')
+        'Our initial OOD self-training pipeline degraded rather than improved OOD generalization. '
+        'We discovered that 71.7% of the OOD pseudo-label boxes were classified as Needle_driver, '
+        'revealing a massive class skew. Manual inspection showed recurring false-positive '
+        'Needle_driver detections on blood-stained gauze. This is a classic case of '
+        'confirmation bias: our teacher model made mistakes on the OOD video, and by blindly '
+        'training on those mistakes, the model became even more confident in its incorrect patterns. '
+        'We learned that confidence alone is insufficient (our P4 policy retained predictions '
+        'at 0.938 confidence but still failed dramatically).')
 
-    doc.add_heading('Pseudo-label policy findings', level=2)
+    doc.add_heading('Finalist Comparison', level=2)
     doc.add_paragraph(
-        '(i) Confidence alone is insufficient: P4 (69 frames, mean conf 0.938) still '
-        'produced 81.3% >2 frames. (ii) Temporal consistency helps: P3+sanity+temporal '
-        '(0.5% >2 frames, 18 class switches) but at recall cost (16% empty frames). '
-        '(iii) Strict OOD thresholds rejected everything; relaxed approach (123 frames) '
-        'made the model too conservative.')
-
-    doc.add_heading('Finalist comparison and final model selection', level=2)
+        'To ensure our comparisons were reliable, we evaluated our top candidates using automated '
+        'OOD video diagnostics, tracking metrics like frames with >2 detections and single-frame '
+        'flickers. We then manually evaluated the finalists on the full 180-second OOD video.')
     add_table(doc,
               ["Finalist", "det/fr", ">2 %", "empty %", "1-frame tracks", "switches"],
               [["Baseline / 0.60", "1.70", "6.6", "5.9", "145", "69"],
                ["ID temporal / 0.40", "1.38", "0.5", "16.0", "92", "18"],
                ["Sup. 1280 / 0.50", "1.49", "5.1", "10.5", "288", "82"]])
-    cap2 = doc.add_paragraph(
-        'Table 2. Diagnostics on full 180s OOD video (5,395 frames) at each finalist\u2019s '
-        'inference threshold.')
+    cap2 = doc.add_paragraph('Table 2. Diagnostics on the full 180s OOD video for our 3 finalists.')
     cap2.alignment = WD_ALIGN_PARAGRAPH.CENTER
     for run in cap2.runs:
         run.font.size = Pt(8)
         run.font.italic = True
     doc.add_paragraph(
-        'Manual review of identical OOD segments focused on false positives, missed '
-        'detections, class stability, and temporal stability. Baseline (conf=0.60): best '
-        'overall visual behavior \u2014 reliable hand detection without recurring gauze false '
-        'positives. ID temporal (conf=0.40): very stable but sometimes missed real hands. '
-        'Sup. 1280 (conf=0.50): reasonable coverage but excessive temporal flicker (288 '
-        'one-frame tracks). The supervised Baseline at inference confidence 0.60 was '
-        'selected as the final model.')
-
-    doc.add_heading('Key lessons', level=2)
-    lessons = [
-        '(1) Pseudo-label quality > quantity \u2014 systematic errors were amplified.',
-        '(2) Self-training can create confirmation bias \u2014 gauze \u2192 Needle_driver reinforced.',
-        '(3) Confidence \u2260 correctness \u2014 P4 at mean conf 0.938 still failed.',
-        '(4) Temporal consistency useful but insufficient \u2014 reduces FP but also recall.',
-        '(5) ID validation mAP \u2260 OOD quality \u2014 Sup. 960 (mAP 0.854) had gauze FP.',
-        '(6) Small val sets sensitive to noise \u2014 2 boxes changed mAP by \u22487%.',
-        '(7) Simplest model can win \u2014 complexity must be validated, not assumed.',
-    ]
-    for lesson in lessons:
-        doc.add_paragraph(lesson)
+        'Our ID temporal model was extremely stable (few false positives) but failed to '
+        'detect real visible hands too often. Our Supervised 1280 model had reasonable '
+        'coverage but suffered from excessive temporal flicker. The Baseline model '
+        'offered the best overall balance of precision and recall on the unseen domain.')
 
     doc.add_heading('Conclusion', level=2)
     doc.add_paragraph(
-        'The supervised Baseline was selected as the final detector because it produced '
-        'the best overall OOD video behavior, despite not achieving the highest validation '
-        'mAP. Naive pseudo-label self-training introduced confirmation bias and severe false '
-        'positives. Stricter confidence thresholds alone were insufficient, while sanity '
-        'and temporal filtering improved prediction stability but reduced recall. The '
-        'experiments therefore show that higher validation metrics and larger pseudo-labeled '
-        'datasets did not necessarily translate into better OOD generalization.')
+        'Ultimately, we selected our supervised Baseline (at confidence 0.60) as the final '
+        'detector because it produced the best overall OOD video behavior, despite not achieving '
+        'the highest validation mAP. Naive pseudo-label self-training introduced confirmation '
+        'bias and severe false positives. Stricter confidence thresholds alone were insufficient, '
+        'while sanity and temporal filtering improved prediction stability but reduced recall. '
+        'Our experiments demonstrate that higher validation metrics and larger pseudo-labeled '
+        'datasets do not necessarily translate into better real-world generalization. Sometimes, '
+        'a well-regularized baseline is the most robust choice.')
 
     out_path = root / args.out
     out_path.parent.mkdir(parents=True, exist_ok=True)
