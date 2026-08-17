@@ -7,7 +7,7 @@ surgery video using **semi-supervised learning (SSL) with pseudo-labels**.
 
 Course: Computer Vision — Surgical Applications, HW1.
 
-Authors: Raz Ben-Aharon and Shalev Manassen (shalevmanassen@gmail.com).
+Authors: Raz Ben-Aharon and Shalev Manassen.
 
 ## Method (overview)
 
@@ -33,8 +33,7 @@ Authors: Raz Ben-Aharon and Shalev Manassen (shalevmanassen@gmail.com).
 annotation artifacts removed; see report §2.1). The supervised Baseline was
 selected as the final model because naive pseudo-label self-training degraded
 OOD video performance through confirmation bias, despite improving some ID
-validation metrics. See the [PDF report](reports/HW1_report_final.pdf) for the
-full experimental analysis.*
+validation metrics.*
 
 ## Setup
 
@@ -55,7 +54,6 @@ Download the final trained weights and place them at `weights/best.pt`:
 
 ## Submission artifacts
 
-- [PDF report](reports/HW1_report_final.pdf) (5 pages)
 - [Annotated OOD video](https://github.com/razbenaharon/surgical-tool-detection-ssl/releases/download/v1.0/surg_1_annotated.mp4)
 - [Final model weights](https://github.com/razbenaharon/surgical-tool-detection-ssl/releases/download/v1.0/best.pt)
 

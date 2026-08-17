@@ -14,7 +14,7 @@ at `/home/student/hw1/labeled_image_data` (so pseudo-labels can be added).
 
 ```bash
 python src/eda.py --data /home/student/hw1/labeled_image_data \
-    --videos /datashare/HW1 --out reports/eda
+    --videos /datashare/HW1 --out tmp/eda
 ```
 
 ## 1. Supervised baseline
@@ -70,12 +70,10 @@ python src/train.py --data data/ssl_ood.yaml --name ssl_ood \
 **Note:** Steps 2–4 document the SSL experiments that were performed. However,
 the final evaluation showed that naive pseudo-labeling degraded OOD performance.
 The final submitted model uses only the supervised Baseline weights from step 1.
-See the report for details.
 
 ## 5. Deliverables
 
 The final model is the supervised Baseline (step 1), not the ssl_ood model.
-See the report for the full experimental justification.
 
 ```bash
 # annotated OOD video (Baseline at conf=0.60)
