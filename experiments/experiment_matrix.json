@@ -1,0 +1,34 @@
+{
+  "seed": 0,
+  "selection_validation": "val_clean",
+  "mandatory_reporting_validation": ["val_original", "val_clean"],
+  "legacy_candidates": ["legacy_baseline", "legacy_ssl_id", "legacy_ssl_ood"],
+  "supervised_candidates": [
+    {"id": "sup_ref_640_auto_clean", "model": "yolo11s", "imgsz": 640, "lr0": 0.01, "optimizer": "auto", "augmentation": "moderate", "purpose": "isolate cleaned-validation effect"},
+    {"id": "sup_s_640_lr001_mod", "model": "yolo11s", "imgsz": 640, "lr0": 0.001, "optimizer": "AdamW", "augmentation": "moderate"},
+    {"id": "sup_s_640_lr003_mod", "model": "yolo11s", "imgsz": 640, "lr0": 0.003, "optimizer": "AdamW", "augmentation": "moderate"},
+    {"id": "sup_s_640_lr010_mod", "model": "yolo11s", "imgsz": 640, "lr0": 0.01, "optimizer": "AdamW", "augmentation": "moderate"},
+    {"id": "sup_s_960_lr001_mod", "model": "yolo11s", "imgsz": 960, "lr0": 0.001, "optimizer": "AdamW", "augmentation": "moderate"},
+    {"id": "sup_s_960_lr003_mod", "model": "yolo11s", "imgsz": 960, "lr0": 0.003, "optimizer": "AdamW", "augmentation": "moderate"},
+    {"id": "sup_s_1280_lr003_mod", "model": "yolo11s", "imgsz": 1280, "lr0": 0.003, "optimizer": "AdamW", "augmentation": "moderate"},
+    {"id": "sup_s_960_lr003_weak", "model": "yolo11s", "imgsz": 960, "lr0": 0.003, "optimizer": "AdamW", "augmentation": "weak"},
+    {"id": "sup_m_960_lr003_weak", "model": "yolo11m", "imgsz": 960, "lr0": 0.003, "optimizer": "AdamW", "augmentation": "weak"},
+    {"id": "sup_s_960_lr001_weak", "model": "yolo11s", "imgsz": 960, "lr0": 0.001, "optimizer": "AdamW", "augmentation": "weak", "purpose": "stable augmentation ablation after lr=0.003 instability"},
+    {"id": "sup_s_1280_lr001_mod", "model": "yolo11s", "imgsz": 1280, "lr0": 0.001, "optimizer": "AdamW", "augmentation": "moderate", "purpose": "stable resolution ablation after lr=0.003 instability"},
+    {"id": "sup_m_960_lr001_weak", "model": "yolo11m", "imgsz": 960, "lr0": 0.001, "optimizer": "AdamW", "augmentation": "weak", "purpose": "stable model-size ablation after lr=0.003 instability"}
+  ],
+  "id_pseudo_policies": [
+    {"id": "id_p1_reference", "box_conf_threshold": 0.5, "frame_conf_threshold": 0.7},
+    {"id": "id_p2", "box_conf_threshold": 0.7, "frame_conf_threshold": 0.8},
+    {"id": "id_p3", "box_conf_threshold": 0.8, "frame_conf_threshold": 0.9},
+    {"id": "id_p4", "box_conf_threshold": 0.9, "frame_conf_threshold": 0.95}
+  ],
+  "ood_pseudo_policies": [
+    {"id": "ood_conf", "filters": "confidence only"},
+    {"id": "ood_conf_sanity", "filters": "confidence + real-box sanity"},
+    {"id": "ood_conf_temporal", "filters": "confidence + temporal persistence"},
+    {"id": "ood_conservative", "filters": "confidence + sanity + temporal + Needle_driver class control"}
+  ],
+  "inference_confidence_thresholds": [0.25, 0.4, 0.5, 0.6, 0.7],
+  "expansion_rule": "Stop branches with inferior clean validation and visibly worse OOD diagnostics/previews; only top 1-2 supervised teachers proceed to SSL."
+}

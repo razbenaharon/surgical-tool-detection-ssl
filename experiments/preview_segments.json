@@ -1,0 +1,12 @@
+{
+  "surg_1.mp4": {
+    "duration_seconds": 10.01,
+    "segments": [[0, 10]],
+    "purpose": "Full short OOD clip; contains the recurring gauze/background Needle_driver false positive."
+  },
+  "4_2_24_A_1.mp4": {
+    "duration_seconds": 180.013,
+    "segments": [[0, 8], [14, 22], [44, 52], [89, 97], [134, 142], [164, 172]],
+    "purpose": "Fixed representative windows covering two hands, one-hand intervals, occlusion, lighting variation, and instrument transitions."
+  }
+}

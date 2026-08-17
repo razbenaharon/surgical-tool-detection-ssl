@@ -1,0 +1,110 @@
+{
+  "experiment_id": "sup_s_1280_lr001_mod_longsegments_conf050",
+  "weights": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/supervised_runs/sup_s_1280_lr001_mod/weights/best.pt",
+  "video": "/datashare/HW1/ood_video_data/4_2_24_A_1.mp4",
+  "segments_seconds": [
+    {
+      "start": 0.0,
+      "end": 8.0
+    },
+    {
+      "start": 14.0,
+      "end": 22.0
+    },
+    {
+      "start": 44.0,
+      "end": 52.0
+    },
+    {
+      "start": 89.0,
+      "end": 97.0
+    },
+    {
+      "start": 134.0,
+      "end": 142.0
+    },
+    {
+      "start": 164.0,
+      "end": 172.0
+    }
+  ],
+  "config": {
+    "weights": "runs/detect/experiments/supervised_runs/sup_s_1280_lr001_mod/weights/best.pt",
+    "video": "/datashare/HW1/ood_video_data/4_2_24_A_1.mp4",
+    "out_video": "evaluation_videos/13_sup_s_1280_lr001_mod_longsegments_conf050.mp4",
+    "out_stats": "experiments/ood_diagnostics/sup_s_1280_lr001_mod_longsegments_conf050.json",
+    "experiment_id": "sup_s_1280_lr001_mod_longsegments_conf050",
+    "segments": [
+      "0:8",
+      "14:22",
+      "44:52",
+      "89:97",
+      "134:142",
+      "164:172"
+    ],
+    "conf": 0.5,
+    "iou": 0.6,
+    "imgsz": 1280,
+    "max_detections": 10,
+    "output_width": 1280,
+    "device": "0",
+    "track_iou": 0.3,
+    "tiny_width": 0.05865,
+    "tiny_height": 0.13356,
+    "tiny_area": 0.00934,
+    "force": false
+  },
+  "frames": 1438,
+  "average_detections_per_frame": 1.590403337969402,
+  "frames_with_0_pct": 5.84144645340751,
+  "frames_with_1_pct": 38.38664812239221,
+  "frames_with_2_pct": 47.77468706536857,
+  "frames_with_more_than_2_pct": 7.99721835883171,
+  "detections_per_class": {
+    "Empty": {
+      "count": 335,
+      "mean_confidence": 0.7372057886265997,
+      "median_confidence": 0.7597637176513672
+    },
+    "Tweezers": {
+      "count": 243,
+      "mean_confidence": 0.640030676200066,
+      "median_confidence": 0.641588032245636
+    },
+    "Needle_driver": {
+      "count": 1709,
+      "mean_confidence": 0.7920800724037912,
+      "median_confidence": 0.8493170738220215
+    }
+  },
+  "tiny_detections": 1,
+  "low_confidence_needle_driver": 0,
+  "tracks": 168,
+  "one_frame_tracks": 61,
+  "tracks_lte_2_frames": 86,
+  "mean_track_persistence_frames": 13.613095238095237,
+  "median_track_persistence_frames": 2.0,
+  "max_track_persistence_frames": 234,
+  "class_switches": 23,
+  "class_switch_frequency": 0.010854176498348278,
+  "box_distribution": {
+    "width": {
+      "min": 0.054127827286720276,
+      "median": 0.2750771641731262,
+      "mean": 0.276082903687538,
+      "max": 0.44410058856010437
+    },
+    "height": {
+      "min": 0.16909144818782806,
+      "median": 0.4153314232826233,
+      "mean": 0.44321712253392914,
+      "max": 0.6513936519622803
+    },
+    "area": {
+      "min": 0.015301244857785168,
+      "median": 0.12062916330847884,
+      "mean": 0.1255217055896291,
+      "max": 0.22364425182158598
+    }
+  }
+}

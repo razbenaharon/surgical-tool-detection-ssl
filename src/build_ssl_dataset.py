@@ -14,6 +14,9 @@ Example:
         --out datasets/ssl_id --yaml data/ssl_id.yaml
 """
 import argparse
+import json
+import shutil
+import sys
 from pathlib import Path
 
 IMG_EXTS = {".png", ".jpg", ".jpeg", ".bmp"}
@@ -39,37 +42,67 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--labeled", required=True,
                     help="labeled_image_data root (images/{train,val}, labels/{train,val})")
+    ap.add_argument("--val-root", default=None,
+                    help="optional validation snapshot root containing images/val + labels/val")
     ap.add_argument("--pseudo", nargs="*", default=[],
                     help="one or more pseudo dirs, each with images/ and labels/")
     ap.add_argument("--out", required=True, help="dir to write train.txt / val.txt")
     ap.add_argument("--yaml", required=True, help="dataset yaml path to write")
+    ap.add_argument("--real-repeat", type=int, default=1,
+                    help="repeat real labeled train paths to increase their effective sampling weight")
+    ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
 
     labeled = Path(args.labeled).resolve()
+    val_root = Path(args.val_root).resolve() if args.val_root else labeled
     out = Path(args.out).resolve()
+    yaml_path = Path(args.yaml).resolve()
+    if args.real_repeat < 1:
+        raise ValueError("--real-repeat must be >= 1")
+    if out.exists() and any(out.iterdir()):
+        if not args.force:
+            raise FileExistsError(f"Refusing to overwrite non-empty dataset dir: {out}")
+        shutil.rmtree(out)
+    if yaml_path.exists() and not args.force:
+        raise FileExistsError(f"Refusing to overwrite dataset yaml: {yaml_path}")
     out.mkdir(parents=True, exist_ok=True)
 
     train_imgs = list_images(labeled / "images" / "train")
-    val_imgs = list_images(labeled / "images" / "val")
+    val_imgs = list_images(val_root / "images" / "val")
 
     pseudo_imgs = []
     for pd in args.pseudo:
         imgs = list_images(Path(pd).resolve() / "images")
         pseudo_imgs.extend(imgs)
 
-    all_train = train_imgs + pseudo_imgs
+    real_effective = train_imgs * args.real_repeat
+    all_train = real_effective + pseudo_imgs
 
     train_txt = out / "train.txt"
     val_txt = out / "val.txt"
     train_txt.write_text("\n".join(str(p) for p in all_train) + "\n")
     val_txt.write_text("\n".join(str(p) for p in val_imgs) + "\n")
 
-    yaml_path = Path(args.yaml)
     yaml_path.parent.mkdir(parents=True, exist_ok=True)
     yaml_path.write_text(YAML_TMPL.format(
         root=out, train_txt=str(train_txt), val_txt=str(val_txt)))
 
-    print(f"labeled train : {len(train_imgs)}")
+    manifest = {
+        "command": " ".join(sys.argv),
+        "labeled_root": str(labeled),
+        "validation_root": str(val_root),
+        "real_unique_images": len(train_imgs),
+        "real_repeat": args.real_repeat,
+        "real_effective_images": len(real_effective),
+        "pseudo_roots": [str(Path(path).resolve()) for path in args.pseudo],
+        "pseudo_images": len(pseudo_imgs),
+        "total_train_entries": len(all_train),
+        "validation_images": len(val_imgs),
+        "yaml": str(yaml_path),
+    }
+    (out / "dataset_manifest.json").write_text(json.dumps(manifest, indent=2))
+
+    print(f"labeled train : {len(train_imgs)} unique x {args.real_repeat}")
     print(f"pseudo train  : {len(pseudo_imgs)}")
     print(f"TOTAL train   : {len(all_train)}")
     print(f"val (real)    : {len(val_imgs)}")

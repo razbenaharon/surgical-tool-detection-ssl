@@ -1,0 +1,80 @@
+{
+  "experiment_id": "sup_s_640_lr001_mod",
+  "weights": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/supervised_runs/sup_s_640_lr001_mod/weights/best.pt",
+  "weights_sha256": "6c0b0ecfe12b8b492df151da11e40389aff3d2f916cd005bb8d06d3ab0c01dad",
+  "imgsz": 640,
+  "validation": {
+    "original": {
+      "precision": 0.8650289336426064,
+      "recall": 0.9079708991820322,
+      "mAP50": 0.9283333333333333,
+      "mAP50-95": 0.7633350168350167,
+      "fitness": 0.7633350168350167,
+      "per_class": {
+        "Empty": {
+          "precision": 0.6093365145141492,
+          "recall": 1.0,
+          "mAP50": 0.995,
+          "mAP50-95": 0.82075
+        },
+        "Tweezers": {
+          "precision": 0.9857502864136698,
+          "recall": 0.9,
+          "mAP50": 0.895,
+          "mAP50-95": 0.7866666666666667
+        },
+        "Needle_driver": {
+          "precision": 1.0,
+          "recall": 0.823912697546097,
+          "mAP50": 0.895,
+          "mAP50-95": 0.6825883838383838
+        }
+      }
+    },
+    "clean": {
+      "precision": 0.8650289336426064,
+      "recall": 0.9718195176096655,
+      "mAP50": 0.995,
+      "mAP50-95": 0.8190185185185185,
+      "fitness": 0.8190185185185185,
+      "per_class": {
+        "Empty": {
+          "precision": 0.6093365145141492,
+          "recall": 1.0,
+          "mAP50": 0.995,
+          "mAP50-95": 0.82075
+        },
+        "Tweezers": {
+          "precision": 0.9857502864136698,
+          "recall": 1.0,
+          "mAP50": 0.995,
+          "mAP50-95": 0.8758333333333332
+        },
+        "Needle_driver": {
+          "precision": 1.0,
+          "recall": 0.9154585528289966,
+          "mAP50": 0.995,
+          "mAP50-95": 0.7604722222222222
+        }
+      }
+    }
+  },
+  "delta_clean_minus_original": {
+    "precision": 0.0,
+    "recall": 0.06384861842763323,
+    "mAP50": 0.06666666666666665,
+    "mAP50-95": 0.05568350168350178
+  },
+  "training": {
+    "results_csv": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/supervised_runs/sup_s_640_lr001_mod/results.csv",
+    "best_epoch": 65,
+    "train_loss": 2.4301000000000004,
+    "validation_loss": 2.3166,
+    "logged_metrics": {
+      "precision": 0.86524,
+      "recall": 0.97161,
+      "mAP50": 0.995,
+      "mAP50-95": 0.81902
+    }
+  }
+}

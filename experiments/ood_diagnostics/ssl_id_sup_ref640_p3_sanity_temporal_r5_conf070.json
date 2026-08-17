@@ -1,0 +1,75 @@
+{
+  "experiment_id": "ssl_id_sup_ref640_p3_sanity_temporal_r5_conf070",
+  "weights": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/ssl_id_runs/ssl_id_sup_ref640_p3_sanity_temporal_r5/weights/best.pt",
+  "video": "/datashare/HW1/ood_video_data/surg_1.mp4",
+  "segments_seconds": [
+    {
+      "start": 0.0,
+      "end": 10.0
+    }
+  ],
+  "config": {
+    "weights": "runs/detect/experiments/ssl_id_runs/ssl_id_sup_ref640_p3_sanity_temporal_r5/weights/best.pt",
+    "video": "/datashare/HW1/ood_video_data/surg_1.mp4",
+    "out_video": "evaluation_videos/ssl_id_sup_ref640_p3_sanity_temporal_r5_conf070.mp4",
+    "out_stats": "experiments/ood_diagnostics/ssl_id_sup_ref640_p3_sanity_temporal_r5_conf070.json",
+    "experiment_id": "ssl_id_sup_ref640_p3_sanity_temporal_r5_conf070",
+    "segments": [
+      "0:10"
+    ],
+    "conf": 0.7,
+    "iou": 0.6,
+    "imgsz": 640,
+    "max_detections": 10,
+    "output_width": 1280,
+    "device": "0",
+    "track_iou": 0.3,
+    "tiny_width": 0.05865,
+    "tiny_height": 0.13356,
+    "tiny_area": 0.00934,
+    "force": false
+  },
+  "frames": 300,
+  "average_detections_per_frame": 0.8833333333333333,
+  "frames_with_0_pct": 23.0,
+  "frames_with_1_pct": 65.66666666666667,
+  "frames_with_2_pct": 11.333333333333334,
+  "frames_with_more_than_2_pct": 0.0,
+  "detections_per_class": {
+    "Needle_driver": {
+      "count": 265,
+      "mean_confidence": 0.8638576527811447,
+      "median_confidence": 0.8880114555358887
+    }
+  },
+  "tiny_detections": 0,
+  "low_confidence_needle_driver": 0,
+  "tracks": 16,
+  "one_frame_tracks": 8,
+  "tracks_lte_2_frames": 9,
+  "mean_track_persistence_frames": 16.5625,
+  "median_track_persistence_frames": 1.5,
+  "max_track_persistence_frames": 203,
+  "class_switches": 0,
+  "class_switch_frequency": 0.0,
+  "box_distribution": {
+    "width": {
+      "min": 0.18130643665790558,
+      "median": 0.31271079182624817,
+      "mean": 0.3174878273370131,
+      "max": 0.39247170090675354
+    },
+    "height": {
+      "min": 0.34502971172332764,
+      "median": 0.48171934485435486,
+      "mean": 0.48149234899934734,
+      "max": 0.606481671333313
+    },
+    "area": {
+      "min": 0.06867391878396534,
+      "median": 0.1597666825770787,
+      "mean": 0.15284122965735283,
+      "max": 0.18648238053692268
+    }
+  }
+}

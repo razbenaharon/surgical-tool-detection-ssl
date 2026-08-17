@@ -13,23 +13,28 @@ Authors: Raz Ben-Aharon and Shalev Manassen (shalevmanassen@gmail.com).
 
 1. **Baseline** — fine-tune a COCO-pretrained YOLO (`yolo11s`) on the 61 labeled
    training images with augmentation.
-2. **Pseudo-label ID videos** — run the baseline on the two in-distribution
-   videos, keep only high-confidence detections as pseudo-labels.
-3. **Refine** — retrain on labeled + ID pseudo-labels (real val set kept for
-   honest evaluation).
-4. **Generalize to OOD** — pseudo-label the OOD video, refine again.
+2. **Semi-supervised experiments** — pseudo-label the in-distribution and OOD
+   videos with various filtering policies, retrain, and evaluate.
+3. **Hyperparameter sweep** — test resolutions (640/960/1280), learning rates
+   (0.001/0.003/0.01), and model scales (s/m).
+4. **Final selection** — the supervised Baseline at inference confidence 0.60
+   was selected as the best OOD detector after quantitative diagnostics and
+   manual comparison of three finalist models.
 
 ## Results (real validation set)
 
 | Model | Train imgs | Precision | Recall | mAP@50 | mAP@50-95 |
 |---|---|---|---|---|---|
-| Baseline (labeled only) | 61 | 0.972 | 0.870 | 0.925 | 0.754 |
-| + ID pseudo-labels | 763 | 0.979 | 0.866 | 0.920 | **0.778** |
-| + OOD pseudo-labels (final) | 1430 | 0.953 | 0.833 | 0.906 | 0.739 |
+| Baseline (labeled only) | 61 | 0.972 | 0.929 | 0.991 | **0.809** |
+| + ID pseudo-labels (ssl_id) | 763 | 0.978 | 0.926 | 0.986 | 0.837 |
+| + OOD pseudo-labels (ssl_ood) | 1430 | 0.954 | 0.889 | 0.971 | 0.792 |
 
-ID pseudo-labels improve localization (mAP@50-95 0.754→0.778); the OOD round
-trades a little ID accuracy for OOD robustness (clearest qualitatively — the
-final model detects hands/tools the baseline misses on the OOD video).
+*Validation metrics above are computed on the cleaned validation set (2 confirmed
+annotation artifacts removed; see report §2.1). The supervised Baseline was
+selected as the final model because naive pseudo-label self-training degraded
+OOD video performance through confirmation bias, despite improving some ID
+validation metrics. See the [PDF report](reports/HW1_report_final.pdf) for the
+full experimental analysis.*
 
 ## Setup
 
@@ -50,7 +55,7 @@ Download the final trained weights and place them at `weights/best.pt`:
 
 ## Submission artifacts
 
-- [PDF report](reports/HW1_report_final.pdf) (4 pages)
+- [PDF report](reports/HW1_report_final.pdf) (5 pages)
 - [Annotated OOD video](https://github.com/razbenaharon/surgical-tool-detection-ssl/releases/download/v1.0/surg_1_annotated.mp4)
 - [Final model weights](https://github.com/razbenaharon/surgical-tool-detection-ssl/releases/download/v1.0/best.pt)
 
@@ -67,7 +72,7 @@ Annotate a full video (writes an mp4 with overlaid boxes + class + confidence):
 
 ```bash
 python video.py --video path/to/surgery.mp4 --weights weights/best.pt \
-    --out annotated.mp4
+    --out annotated.mp4 --conf 0.60
 ```
 
 ## Reproducing training

@@ -1,0 +1,83 @@
+{
+  "experiment_id": "sup_s_1280_lr001_mod_full_conf050",
+  "weights": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/supervised_runs/sup_s_1280_lr001_mod/weights/best.pt",
+  "video": "/datashare/HW1/ood_video_data/4_2_24_A_1.mp4",
+  "segments_seconds": [
+    {
+      "start": 0.0,
+      "end": 180.01316666666668
+    }
+  ],
+  "config": {
+    "weights": "runs/detect/experiments/supervised_runs/sup_s_1280_lr001_mod/weights/best.pt",
+    "video": "/datashare/HW1/ood_video_data/4_2_24_A_1.mp4",
+    "out_video": "evaluation_videos/finalist_02_sup1280_conf050_full.mp4",
+    "out_stats": "experiments/ood_diagnostics/sup_s_1280_lr001_mod_full_conf050.json",
+    "experiment_id": "sup_s_1280_lr001_mod_full_conf050",
+    "segments": [],
+    "conf": 0.5,
+    "iou": 0.6,
+    "imgsz": 1280,
+    "max_detections": 10,
+    "output_width": 1280,
+    "device": "0",
+    "track_iou": 0.3,
+    "tiny_width": 0.05865,
+    "tiny_height": 0.13356,
+    "tiny_area": 0.00934,
+    "force": false
+  },
+  "frames": 5395,
+  "average_detections_per_frame": 1.4917516218721039,
+  "frames_with_0_pct": 10.491195551436515,
+  "frames_with_1_pct": 35.588507877664505,
+  "frames_with_2_pct": 48.804448563484705,
+  "frames_with_more_than_2_pct": 5.1158480074142725,
+  "detections_per_class": {
+    "Empty": {
+      "count": 1108,
+      "mean_confidence": 0.692281775633781,
+      "median_confidence": 0.6835887730121613
+    },
+    "Tweezers": {
+      "count": 635,
+      "mean_confidence": 0.6321800279805041,
+      "median_confidence": 0.6331721544265747
+    },
+    "Needle_driver": {
+      "count": 6305,
+      "mean_confidence": 0.7880537322454279,
+      "median_confidence": 0.8575406074523926
+    }
+  },
+  "tiny_detections": 1,
+  "low_confidence_needle_driver": 0,
+  "tracks": 743,
+  "one_frame_tracks": 288,
+  "tracks_lte_2_frames": 399,
+  "mean_track_persistence_frames": 10.831763122476447,
+  "median_track_persistence_frames": 2.0,
+  "max_track_persistence_frames": 399,
+  "class_switches": 82,
+  "class_switch_frequency": 0.011225188227241615,
+  "box_distribution": {
+    "width": {
+      "min": 0.054127827286720276,
+      "median": 0.2855565845966339,
+      "mean": 0.27697465231523627,
+      "max": 0.447865754365921
+    },
+    "height": {
+      "min": 0.16771426796913147,
+      "median": 0.4229764938354492,
+      "mean": 0.4546872300779073,
+      "max": 0.6513936519622803
+    },
+    "area": {
+      "min": 0.015301244857785168,
+      "median": 0.12150930742629296,
+      "mean": 0.1295617154961938,
+      "max": 0.22364425182158598
+    }
+  }
+}

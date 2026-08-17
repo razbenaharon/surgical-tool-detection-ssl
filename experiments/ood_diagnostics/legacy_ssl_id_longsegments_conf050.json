@@ -1,0 +1,110 @@
+{
+  "experiment_id": "legacy_ssl_id_longsegments_conf050",
+  "weights": "/home/vmadmin/hw1/legacy/ssl_id/best.pt",
+  "video": "/datashare/HW1/ood_video_data/4_2_24_A_1.mp4",
+  "segments_seconds": [
+    {
+      "start": 0.0,
+      "end": 8.0
+    },
+    {
+      "start": 14.0,
+      "end": 22.0
+    },
+    {
+      "start": 44.0,
+      "end": 52.0
+    },
+    {
+      "start": 89.0,
+      "end": 97.0
+    },
+    {
+      "start": 134.0,
+      "end": 142.0
+    },
+    {
+      "start": 164.0,
+      "end": 172.0
+    }
+  ],
+  "config": {
+    "weights": "/home/vmadmin/hw1/legacy/ssl_id/best.pt",
+    "video": "/datashare/HW1/ood_video_data/4_2_24_A_1.mp4",
+    "out_video": "evaluation_videos/01_legacy_ssl_id_longsegments_conf050.mp4",
+    "out_stats": "experiments/ood_diagnostics/legacy_ssl_id_longsegments_conf050.json",
+    "experiment_id": "legacy_ssl_id_longsegments_conf050",
+    "segments": [
+      "0:8",
+      "14:22",
+      "44:52",
+      "89:97",
+      "134:142",
+      "164:172"
+    ],
+    "conf": 0.5,
+    "iou": 0.6,
+    "imgsz": 640,
+    "max_detections": 10,
+    "output_width": 1280,
+    "device": "0",
+    "track_iou": 0.3,
+    "tiny_width": 0.05865,
+    "tiny_height": 0.13356,
+    "tiny_area": 0.00934,
+    "force": false
+  },
+  "frames": 1438,
+  "average_detections_per_frame": 2.887343532684284,
+  "frames_with_0_pct": 0.2086230876216968,
+  "frames_with_1_pct": 6.4673157162726005,
+  "frames_with_2_pct": 16.689847009735743,
+  "frames_with_more_than_2_pct": 76.63421418636996,
+  "detections_per_class": {
+    "Empty": {
+      "count": 319,
+      "mean_confidence": 0.7353102607786842,
+      "median_confidence": 0.7547787427902222
+    },
+    "Tweezers": {
+      "count": 838,
+      "mean_confidence": 0.7712895173872855,
+      "median_confidence": 0.7847647368907928
+    },
+    "Needle_driver": {
+      "count": 2995,
+      "mean_confidence": 0.7219746499109347,
+      "median_confidence": 0.735022783279419
+    }
+  },
+  "tiny_detections": 29,
+  "low_confidence_needle_driver": 0,
+  "tracks": 225,
+  "one_frame_tracks": 66,
+  "tracks_lte_2_frames": 95,
+  "mean_track_persistence_frames": 18.453333333333333,
+  "median_track_persistence_frames": 3.0,
+  "max_track_persistence_frames": 239,
+  "class_switches": 110,
+  "class_switch_frequency": 0.028011204481792718,
+  "box_distribution": {
+    "width": {
+      "min": 0.04115276411175728,
+      "median": 0.24626696854829788,
+      "mean": 0.2586616991941955,
+      "max": 0.4664645195007324
+    },
+    "height": {
+      "min": 0.17231670022010803,
+      "median": 0.3807833343744278,
+      "mean": 0.37584995385438835,
+      "max": 0.620293378829956
+    },
+    "area": {
+      "min": 0.012545814325725102,
+      "median": 0.09110283176504907,
+      "mean": 0.09996672591354792,
+      "max": 0.223585407243462
+    }
+  }
+}

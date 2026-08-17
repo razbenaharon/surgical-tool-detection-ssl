@@ -1,0 +1,110 @@
+{
+  "experiment_id": "ssl_id_sup_ref640_p3_sanity_temporal_r5_longsegments_conf050",
+  "weights": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/ssl_id_runs/ssl_id_sup_ref640_p3_sanity_temporal_r5/weights/best.pt",
+  "video": "/datashare/HW1/ood_video_data/4_2_24_A_1.mp4",
+  "segments_seconds": [
+    {
+      "start": 0.0,
+      "end": 8.0
+    },
+    {
+      "start": 14.0,
+      "end": 22.0
+    },
+    {
+      "start": 44.0,
+      "end": 52.0
+    },
+    {
+      "start": 89.0,
+      "end": 97.0
+    },
+    {
+      "start": 134.0,
+      "end": 142.0
+    },
+    {
+      "start": 164.0,
+      "end": 172.0
+    }
+  ],
+  "config": {
+    "weights": "runs/detect/experiments/ssl_id_runs/ssl_id_sup_ref640_p3_sanity_temporal_r5/weights/best.pt",
+    "video": "/datashare/HW1/ood_video_data/4_2_24_A_1.mp4",
+    "out_video": "evaluation_videos/15_ssl_id_sup_ref640_p3_sanity_temporal_r5_longsegments_conf050.mp4",
+    "out_stats": "experiments/ood_diagnostics/ssl_id_sup_ref640_p3_sanity_temporal_r5_longsegments_conf050.json",
+    "experiment_id": "ssl_id_sup_ref640_p3_sanity_temporal_r5_longsegments_conf050",
+    "segments": [
+      "0:8",
+      "14:22",
+      "44:52",
+      "89:97",
+      "134:142",
+      "164:172"
+    ],
+    "conf": 0.5,
+    "iou": 0.6,
+    "imgsz": 640,
+    "max_detections": 10,
+    "output_width": 1280,
+    "device": "0",
+    "track_iou": 0.3,
+    "tiny_width": 0.05865,
+    "tiny_height": 0.13356,
+    "tiny_area": 0.00934,
+    "force": false
+  },
+  "frames": 1438,
+  "average_detections_per_frame": 1.3546592489568845,
+  "frames_with_0_pct": 15.99443671766342,
+  "frames_with_1_pct": 32.61474269819193,
+  "frames_with_2_pct": 51.32127955493741,
+  "frames_with_more_than_2_pct": 0.06954102920723226,
+  "detections_per_class": {
+    "Empty": {
+      "count": 139,
+      "mean_confidence": 0.723659454060973,
+      "median_confidence": 0.7234135270118713
+    },
+    "Tweezers": {
+      "count": 348,
+      "mean_confidence": 0.7447227270438753,
+      "median_confidence": 0.7823373377323151
+    },
+    "Needle_driver": {
+      "count": 1461,
+      "mean_confidence": 0.7896565390644948,
+      "median_confidence": 0.8450943231582642
+    }
+  },
+  "tiny_detections": 0,
+  "low_confidence_needle_driver": 0,
+  "tracks": 94,
+  "one_frame_tracks": 36,
+  "tracks_lte_2_frames": 44,
+  "mean_track_persistence_frames": 20.72340425531915,
+  "median_track_persistence_frames": 3.0,
+  "max_track_persistence_frames": 227,
+  "class_switches": 1,
+  "class_switch_frequency": 0.0005393743257820927,
+  "box_distribution": {
+    "width": {
+      "min": 0.08868256211280823,
+      "median": 0.28219640254974365,
+      "mean": 0.2684648760864071,
+      "max": 0.40993383526802063
+    },
+    "height": {
+      "min": 0.19128018617630005,
+      "median": 0.41974468529224396,
+      "mean": 0.4398490681448756,
+      "max": 0.606481671333313
+    },
+    "area": {
+      "min": 0.01696321699152925,
+      "median": 0.13805990221045583,
+      "mean": 0.12017600549429615,
+      "max": 0.19899605041739932
+    }
+  }
+}

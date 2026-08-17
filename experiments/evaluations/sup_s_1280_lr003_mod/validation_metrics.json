@@ -1,0 +1,80 @@
+{
+  "experiment_id": "sup_s_1280_lr003_mod",
+  "weights": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/supervised_runs/sup_s_1280_lr003_mod/weights/best.pt",
+  "weights_sha256": "a076216e382593aab305e3e381f304c9257ee4ec013617e650b9470862cd518e",
+  "imgsz": 1280,
+  "validation": {
+    "original": {
+      "precision": 0.017508891196950243,
+      "recall": 0.3,
+      "mAP50": 0.014513045495838423,
+      "mAP50-95": 0.006459524394585444,
+      "fitness": 0.006459524394585444,
+      "per_class": {
+        "Empty": {
+          "precision": 0.005171698914865813,
+          "recall": 0.5,
+          "mAP50": 0.007279411764705883,
+          "mAP50-95": 0.0058235294117647066
+        },
+        "Tweezers": {
+          "precision": 0.03318107020012146,
+          "recall": 0.3,
+          "mAP50": 0.025708406644393757,
+          "mAP50-95": 0.010225905328908593
+        },
+        "Needle_driver": {
+          "precision": 0.014173904475863456,
+          "recall": 0.1,
+          "mAP50": 0.010551318078415629,
+          "mAP50-95": 0.003329138443083038
+        }
+      }
+    },
+    "clean": {
+      "precision": 0.017508891196950243,
+      "recall": 0.3148148148148148,
+      "mAP50": 0.01595440738911446,
+      "mAP50-95": 0.007033817205935714,
+      "fitness": 0.007033817205935714,
+      "per_class": {
+        "Empty": {
+          "precision": 0.005171698914865813,
+          "recall": 0.5,
+          "mAP50": 0.007279411764705883,
+          "mAP50-95": 0.0058235294117647066
+        },
+        "Tweezers": {
+          "precision": 0.03318107020012146,
+          "recall": 0.3333333333333333,
+          "mAP50": 0.028779247308833134,
+          "mAP50-95": 0.011513950407254
+        },
+        "Needle_driver": {
+          "precision": 0.014173904475863456,
+          "recall": 0.1111111111111111,
+          "mAP50": 0.011804563093804364,
+          "mAP50-95": 0.0037639717987884404
+        }
+      }
+    }
+  },
+  "delta_clean_minus_original": {
+    "precision": 0.0,
+    "recall": 0.014814814814814836,
+    "mAP50": 0.0014413618932760369,
+    "mAP50-95": 0.0005742928113502705
+  },
+  "training": {
+    "results_csv": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/supervised_runs/sup_s_1280_lr003_mod/results.csv",
+    "best_epoch": 6,
+    "train_loss": 11.36364,
+    "validation_loss": 10.73929,
+    "logged_metrics": {
+      "precision": 0.01615,
+      "recall": 0.31481,
+      "mAP50": 0.01549,
+      "mAP50-95": 0.00701
+    }
+  }
+}

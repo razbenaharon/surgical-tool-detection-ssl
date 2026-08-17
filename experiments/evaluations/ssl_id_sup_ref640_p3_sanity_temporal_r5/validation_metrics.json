@@ -1,0 +1,80 @@
+{
+  "experiment_id": "ssl_id_sup_ref640_p3_sanity_temporal_r5",
+  "weights": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/ssl_id_runs/ssl_id_sup_ref640_p3_sanity_temporal_r5/weights/best.pt",
+  "weights_sha256": "be90c25eaa7fb73046138f7dcce7d742ef37890ef75d023c2f6d0af8b584092c",
+  "imgsz": 640,
+  "validation": {
+    "original": {
+      "precision": 0.9702057386282016,
+      "recall": 0.8883432107186898,
+      "mAP50": 0.9222727272727274,
+      "mAP50-95": 0.7670304232804234,
+      "fitness": 0.7670304232804234,
+      "per_class": {
+        "Empty": {
+          "precision": 1.0,
+          "recall": 0.9747418952187608,
+          "mAP50": 0.995,
+          "mAP50-95": 0.92025
+        },
+        "Tweezers": {
+          "precision": 0.9106172158846048,
+          "recall": 0.9,
+          "mAP50": 0.895,
+          "mAP50-95": 0.7573412698412698
+        },
+        "Needle_driver": {
+          "precision": 1.0,
+          "recall": 0.7902877369373089,
+          "mAP50": 0.8768181818181819,
+          "mAP50-95": 0.6235
+        }
+      }
+    },
+    "clean": {
+      "precision": 0.9702429203323764,
+      "recall": 0.9506736337983349,
+      "mAP50": 0.9883333333333333,
+      "mAP50-95": 0.8198084656084654,
+      "fitness": 0.8198084656084654,
+      "per_class": {
+        "Empty": {
+          "precision": 1.0,
+          "recall": 0.9741471657940824,
+          "mAP50": 0.995,
+          "mAP50-95": 0.92025
+        },
+        "Tweezers": {
+          "precision": 0.910728760997129,
+          "recall": 1.0,
+          "mAP50": 0.995,
+          "mAP50-95": 0.8428253968253969
+        },
+        "Needle_driver": {
+          "precision": 1.0,
+          "recall": 0.8778737356009225,
+          "mAP50": 0.9750000000000001,
+          "mAP50-95": 0.69635
+        }
+      }
+    }
+  },
+  "delta_clean_minus_original": {
+    "precision": 3.718170417477129e-05,
+    "recall": 0.06233042307964509,
+    "mAP50": 0.06606060606060593,
+    "mAP50-95": 0.05277804232804206
+  },
+  "training": {
+    "results_csv": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/ssl_id_runs/ssl_id_sup_ref640_p3_sanity_temporal_r5/results.csv",
+    "best_epoch": 18,
+    "train_loss": 1.7681399999999998,
+    "validation_loss": 2.2642499999999997,
+    "logged_metrics": {
+      "precision": 0.97024,
+      "recall": 0.95071,
+      "mAP50": 0.98833,
+      "mAP50-95": 0.81981
+    }
+  }
+}

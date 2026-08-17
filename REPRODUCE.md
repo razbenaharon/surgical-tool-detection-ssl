@@ -67,15 +67,23 @@ python src/train.py --data data/ssl_ood.yaml --name ssl_ood \
     --batch 16 --patience 40
 ```
 
+**Note:** Steps 2–4 document the SSL experiments that were performed. However,
+the final evaluation showed that naive pseudo-labeling degraded OOD performance.
+The final submitted model uses only the supervised Baseline weights from step 1.
+See the report for details.
+
 ## 5. Deliverables
 
+The final model is the supervised Baseline (step 1), not the ssl_ood model.
+See the report for the full experimental justification.
+
 ```bash
-# annotated OOD video
+# annotated OOD video (Baseline at conf=0.60)
 python video.py --video /datashare/HW1/ood_video_data/surg_1.mp4 \
-    --weights runs/.../ssl_ood/weights/best.pt \
-    --out deliverables/surg_1_annotated.mp4 --conf 0.3
+    --weights weights/best.pt \
+    --out deliverables/surg_1_annotated.mp4 --conf 0.60
 
 # single-image prediction (YOLO-format output)
 python predict.py --image some_frame.jpg \
-    --weights runs/.../ssl_ood/weights/best.pt --out-img pred.jpg --out-txt pred.txt
+    --weights weights/best.pt --out-img pred.jpg --out-txt pred.txt
 ```

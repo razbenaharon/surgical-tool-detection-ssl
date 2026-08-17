@@ -1,0 +1,85 @@
+{
+  "experiment_id": "sup_s_1280_lr001_mod_conf070",
+  "weights": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/supervised_runs/sup_s_1280_lr001_mod/weights/best.pt",
+  "video": "/datashare/HW1/ood_video_data/surg_1.mp4",
+  "segments_seconds": [
+    {
+      "start": 0.0,
+      "end": 10.0
+    }
+  ],
+  "config": {
+    "weights": "runs/detect/experiments/supervised_runs/sup_s_1280_lr001_mod/weights/best.pt",
+    "video": "/datashare/HW1/ood_video_data/surg_1.mp4",
+    "out_video": "evaluation_videos/13_sup_s_1280_lr001_mod_conf070.mp4",
+    "out_stats": "experiments/ood_diagnostics/sup_s_1280_lr001_mod_conf070.json",
+    "experiment_id": "sup_s_1280_lr001_mod_conf070",
+    "segments": [
+      "0:10"
+    ],
+    "conf": 0.7,
+    "iou": 0.6,
+    "imgsz": 1280,
+    "max_detections": 10,
+    "output_width": 1280,
+    "device": "0",
+    "track_iou": 0.3,
+    "tiny_width": 0.05865,
+    "tiny_height": 0.13356,
+    "tiny_area": 0.00934,
+    "force": false
+  },
+  "frames": 300,
+  "average_detections_per_frame": 1.0866666666666667,
+  "frames_with_0_pct": 15.666666666666666,
+  "frames_with_1_pct": 60.0,
+  "frames_with_2_pct": 24.333333333333332,
+  "frames_with_more_than_2_pct": 0.0,
+  "detections_per_class": {
+    "Empty": {
+      "count": 9,
+      "mean_confidence": 0.7416597207387289,
+      "median_confidence": 0.7347970604896545
+    },
+    "Tweezers": {
+      "count": 1,
+      "mean_confidence": 0.7063735127449036,
+      "median_confidence": 0.7063735127449036
+    },
+    "Needle_driver": {
+      "count": 316,
+      "mean_confidence": 0.838647419327422,
+      "median_confidence": 0.8609015941619873
+    }
+  },
+  "tiny_detections": 0,
+  "low_confidence_needle_driver": 0,
+  "tracks": 28,
+  "one_frame_tracks": 16,
+  "tracks_lte_2_frames": 20,
+  "mean_track_persistence_frames": 11.642857142857142,
+  "median_track_persistence_frames": 1.0,
+  "max_track_persistence_frames": 207,
+  "class_switches": 0,
+  "class_switch_frequency": 0.0,
+  "box_distribution": {
+    "width": {
+      "min": 0.16519223153591156,
+      "median": 0.31948918104171753,
+      "mean": 0.3104474448993162,
+      "max": 0.41353654861450195
+    },
+    "height": {
+      "min": 0.21970346570014954,
+      "median": 0.47089123725891113,
+      "mean": 0.4649532415384164,
+      "max": 0.5942978262901306
+    },
+    "area": {
+      "min": 0.06174728231975779,
+      "median": 0.15609820291028065,
+      "mean": 0.14506382422925088,
+      "max": 0.21584158157812894
+    }
+  }
+}

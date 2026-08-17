@@ -1,0 +1,85 @@
+{
+  "experiment_id": "ssl_id_sup_ref640_p3_sanity_temporal_r5_conf050",
+  "weights": "/home/vmadmin/hw1/hw1_repo/runs/detect/experiments/ssl_id_runs/ssl_id_sup_ref640_p3_sanity_temporal_r5/weights/best.pt",
+  "video": "/datashare/HW1/ood_video_data/surg_1.mp4",
+  "segments_seconds": [
+    {
+      "start": 0.0,
+      "end": 10.0
+    }
+  ],
+  "config": {
+    "weights": "runs/detect/experiments/ssl_id_runs/ssl_id_sup_ref640_p3_sanity_temporal_r5/weights/best.pt",
+    "video": "/datashare/HW1/ood_video_data/surg_1.mp4",
+    "out_video": "evaluation_videos/ssl_id_sup_ref640_p3_sanity_temporal_r5_conf050.mp4",
+    "out_stats": "experiments/ood_diagnostics/ssl_id_sup_ref640_p3_sanity_temporal_r5_conf050.json",
+    "experiment_id": "ssl_id_sup_ref640_p3_sanity_temporal_r5_conf050",
+    "segments": [
+      "0:10"
+    ],
+    "conf": 0.5,
+    "iou": 0.6,
+    "imgsz": 640,
+    "max_detections": 10,
+    "output_width": 1280,
+    "device": "0",
+    "track_iou": 0.3,
+    "tiny_width": 0.05865,
+    "tiny_height": 0.13356,
+    "tiny_area": 0.00934,
+    "force": false
+  },
+  "frames": 300,
+  "average_detections_per_frame": 1.4066666666666667,
+  "frames_with_0_pct": 17.333333333333332,
+  "frames_with_1_pct": 24.666666666666668,
+  "frames_with_2_pct": 58.0,
+  "frames_with_more_than_2_pct": 0.0,
+  "detections_per_class": {
+    "Empty": {
+      "count": 3,
+      "mean_confidence": 0.6336047848065695,
+      "median_confidence": 0.6728856563568115
+    },
+    "Tweezers": {
+      "count": 3,
+      "mean_confidence": 0.517770528793335,
+      "median_confidence": 0.5096100568771362
+    },
+    "Needle_driver": {
+      "count": 416,
+      "mean_confidence": 0.7807433949067042,
+      "median_confidence": 0.8466081321239471
+    }
+  },
+  "tiny_detections": 0,
+  "low_confidence_needle_driver": 0,
+  "tracks": 11,
+  "one_frame_tracks": 3,
+  "tracks_lte_2_frames": 5,
+  "mean_track_persistence_frames": 38.36363636363637,
+  "median_track_persistence_frames": 4.0,
+  "max_track_persistence_frames": 206,
+  "class_switches": 0,
+  "class_switch_frequency": 0.0,
+  "box_distribution": {
+    "width": {
+      "min": 0.17186357080936432,
+      "median": 0.29493311047554016,
+      "mean": 0.29805459823653596,
+      "max": 0.39488521218299866
+    },
+    "height": {
+      "min": 0.18868136405944824,
+      "median": 0.4221743196249008,
+      "mean": 0.4466030744579731,
+      "max": 0.606481671333313
+    },
+    "area": {
+      "min": 0.052736082812998575,
+      "median": 0.15010375924590313,
+      "mean": 0.13410256692787434,
+      "max": 0.18691422683316894
+    }
+  }
+}

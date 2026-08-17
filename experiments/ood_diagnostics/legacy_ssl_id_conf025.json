@@ -1,0 +1,85 @@
+{
+  "experiment_id": "legacy_ssl_id_conf025",
+  "weights": "/home/vmadmin/hw1/legacy/ssl_id/best.pt",
+  "video": "/datashare/HW1/ood_video_data/surg_1.mp4",
+  "segments_seconds": [
+    {
+      "start": 0.0,
+      "end": 10.0
+    }
+  ],
+  "config": {
+    "weights": "/home/vmadmin/hw1/legacy/ssl_id/best.pt",
+    "video": "/datashare/HW1/ood_video_data/surg_1.mp4",
+    "out_video": "evaluation_videos/01_ssl_id_current_conf025.mp4",
+    "out_stats": "experiments/ood_diagnostics/legacy_ssl_id_conf025.json",
+    "experiment_id": "legacy_ssl_id_conf025",
+    "segments": [
+      "0:10"
+    ],
+    "conf": 0.25,
+    "iou": 0.6,
+    "imgsz": 640,
+    "max_detections": 10,
+    "output_width": 1280,
+    "device": "0",
+    "track_iou": 0.3,
+    "tiny_width": 0.05865,
+    "tiny_height": 0.13356,
+    "tiny_area": 0.00934,
+    "force": false
+  },
+  "frames": 300,
+  "average_detections_per_frame": 4.466666666666667,
+  "frames_with_0_pct": 0.0,
+  "frames_with_1_pct": 0.0,
+  "frames_with_2_pct": 0.3333333333333333,
+  "frames_with_more_than_2_pct": 99.66666666666667,
+  "detections_per_class": {
+    "Empty": {
+      "count": 23,
+      "mean_confidence": 0.4166692119577657,
+      "median_confidence": 0.3628169596195221
+    },
+    "Tweezers": {
+      "count": 273,
+      "mean_confidence": 0.6809516310036837,
+      "median_confidence": 0.7027417421340942
+    },
+    "Needle_driver": {
+      "count": 1044,
+      "mean_confidence": 0.620759895192709,
+      "median_confidence": 0.6195410788059235
+    }
+  },
+  "tiny_detections": 1,
+  "low_confidence_needle_driver": 278,
+  "tracks": 45,
+  "one_frame_tracks": 8,
+  "tracks_lte_2_frames": 14,
+  "mean_track_persistence_frames": 29.77777777777778,
+  "median_track_persistence_frames": 6.0,
+  "max_track_persistence_frames": 229,
+  "class_switches": 62,
+  "class_switch_frequency": 0.047876447876447875,
+  "box_distribution": {
+    "width": {
+      "min": 0.1181282103061676,
+      "median": 0.25697119534015656,
+      "mean": 0.23780291521949554,
+      "max": 0.4421048164367676
+    },
+    "height": {
+      "min": 0.1111745834350586,
+      "median": 0.37691448628902435,
+      "mean": 0.35573075100112317,
+      "max": 0.5951812267303467
+    },
+    "area": {
+      "min": 0.01802092957962742,
+      "median": 0.09829215532891489,
+      "mean": 0.0911627488154398,
+      "max": 0.21832014904710917
+    }
+  }
+}

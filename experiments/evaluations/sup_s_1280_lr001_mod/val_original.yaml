@@ -1,0 +1,8 @@
+path: /home/vmadmin/hw1/hw1_repo/datasets/validation_versions/val_original
+train: images/val
+val: images/val
+
+names:
+  0: Empty
+  1: Tweezers
+  2: Needle_driver

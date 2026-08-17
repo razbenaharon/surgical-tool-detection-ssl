@@ -1,0 +1,125 @@
+{
+  "source_image": "C:\\Users\\User\\OneDrive - Technion\\Python\\cv_or_hw\\data\\labeled_image_data\\images\\val\\ff8c22da-output_0182.png",
+  "source_image_sha256": "e52bdaca5bb74924befbf80d27d25fd02bbaf60ab0513eda9f1723c516749fbb",
+  "source_label": "C:\\Users\\User\\OneDrive - Technion\\Python\\cv_or_hw\\data\\labeled_image_data\\labels\\val\\ff8c22da-output_0182.txt",
+  "source_label_sha256": "8ab36d8b6f36189df2d75f2f181aa49379a014890535a8b223b939808153e07a",
+  "image_width": 3840,
+  "image_height": 2160,
+  "suspicious_rows": [
+    2,
+    4
+  ],
+  "annotations": [
+    {
+      "row": 1,
+      "raw": "2 0.3171182502990097 0.4028462614495607 0.15886694767784232 0.28461946396458915",
+      "class_id": 2,
+      "class_name": "Needle_driver",
+      "x_center": 0.3171182502990097,
+      "y_center": 0.4028462614495607,
+      "width": 0.15886694767784232,
+      "height": 0.28461946396458915,
+      "area": 0.04521662548975791,
+      "aspect_ratio": 0.558173167305268,
+      "pixel_box": [
+        913,
+        563,
+        1523,
+        1178
+      ],
+      "pixel_width": 610,
+      "pixel_height": 615,
+      "is_suspicious": false
+    },
+    {
+      "row": 2,
+      "raw": "2 0.3140394088669951 0.25506294471811713 0.003694581280788185 0.006568144499178957",
+      "class_id": 2,
+      "class_name": "Needle_driver",
+      "x_center": 0.3140394088669951,
+      "y_center": 0.25506294471811713,
+      "width": 0.003694581280788185,
+      "height": 0.006568144499178957,
+      "area": 2.4266543716178462e-05,
+      "aspect_ratio": 0.5625000000000033,
+      "pixel_box": [
+        1199,
+        544,
+        1213,
+        558
+      ],
+      "pixel_width": 14,
+      "pixel_height": 14,
+      "is_suspicious": true
+    },
+    {
+      "row": 3,
+      "raw": "1 0.5935960828113255 0.43130806187477705 0.09729059299803983 0.33497555660074707",
+      "class_id": 1,
+      "class_name": "Tweezers",
+      "x_center": 0.5935960828113255,
+      "y_center": 0.43130806187477705,
+      "width": 0.09729059299803983,
+      "height": 0.33497555660074707,
+      "area": 0.03258997054153514,
+      "aspect_ratio": 0.29044087271716723,
+      "pixel_box": [
+        2093,
+        570,
+        2466,
+        1293
+      ],
+      "pixel_width": 373,
+      "pixel_height": 723,
+      "is_suspicious": false
+    },
+    {
+      "row": 4,
+      "raw": "1 0.5942118226600985 0.26929392446633826 0.0024630541871921707 0.008757525998905322",
+      "class_id": 1,
+      "class_name": "Tweezers",
+      "x_center": 0.5942118226600985,
+      "y_center": 0.26929392446633826,
+      "width": 0.0024630541871921707,
+      "height": 0.008757525998905322,
+      "area": 2.157026108104805e-05,
+      "aspect_ratio": 0.2812500000000056,
+      "pixel_box": [
+        2277,
+        572,
+        2287,
+        591
+      ],
+      "pixel_width": 10,
+      "pixel_height": 19,
+      "is_suspicious": true
+    }
+  ],
+  "val_original": {
+    "version_root": "C:\\Users\\User\\OneDrive - Technion\\Python\\cv_or_hw\\hw1_repo\\datasets\\validation_versions\\val_original",
+    "source_root": "C:\\Users\\User\\OneDrive - Technion\\Python\\cv_or_hw\\data\\labeled_image_data",
+    "image_count": 10,
+    "label_count": 10,
+    "removed_annotations": [],
+    "labels_byte_identical_to_source": true,
+    "images_byte_identical_to_source": true
+  },
+  "val_clean": {
+    "version_root": "C:\\Users\\User\\OneDrive - Technion\\Python\\cv_or_hw\\hw1_repo\\datasets\\validation_versions\\val_clean",
+    "source_root": "C:\\Users\\User\\OneDrive - Technion\\Python\\cv_or_hw\\data\\labeled_image_data",
+    "image_count": 10,
+    "label_count": 10,
+    "removed_annotations": [
+      {
+        "file": "ff8c22da-output_0182.txt",
+        "row": 2,
+        "content": "2 0.3140394088669951 0.25506294471811713 0.003694581280788185 0.006568144499178957"
+      },
+      {
+        "file": "ff8c22da-output_0182.txt",
+        "row": 4,
+        "content": "1 0.5942118226600985 0.26929392446633826 0.0024630541871921707 0.008757525998905322"
+      }
+    ]
+  }
+}

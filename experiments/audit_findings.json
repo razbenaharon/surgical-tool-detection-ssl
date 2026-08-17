@@ -1,0 +1,35 @@
+{
+  "report_edited": false,
+  "official_dataset": {"train_images": 61, "train_boxes": 135, "val_images": 10, "val_boxes_original": 22, "val_boxes_clean": 20},
+  "validation_annotation_audit": {
+    "image": "ff8c22da-output_0182.png",
+    "source_label_sha256": "8ab36d8b6f36189df2d75f2f181aa49379a014890535a8b223b939808153e07a",
+    "removed_from_clean_only": [
+      {"row": 2, "class": "Needle_driver", "pixel_size": [14, 14], "reason": "background above the real hand/tool; not a meaningful hand+tool object"},
+      {"row": 4, "class": "Tweezers", "pixel_size": [10, 19], "reason": "tiny patch at glove/background boundary; not a meaningful hand+tool object"}
+    ],
+    "val_original_labels_byte_identical": true,
+    "val_original_images_byte_identical": true
+  },
+  "legacy_model_hashes": {
+    "baseline": "5f25bb86c8bdecdddcbcc5471b2542b53efe439f400cf8a1273910b8f22af3bc",
+    "ssl_id": "03cbb1289990dc60e26ca52174c0a59a8cbbab358ebfac651fbd91881f48c8ce",
+    "ssl_ood": "69a0fd8f7f858a3d4f48308f59523c824b73bc77e80bce8a6f4ebe304bdc7704"
+  },
+  "legacy_training_reconstruction": {
+    "baseline": {"parent": "yolo11s.pt", "epochs_requested": 150, "epochs_run": 150, "best_epoch": 128},
+    "ssl_id": {"parent": "baseline/best.pt", "epochs_requested": 120, "epochs_run": 80, "best_epoch": 40},
+    "ssl_ood": {"parent": "ssl_id/best.pt", "epochs_requested": 100, "epochs_run": 34, "best_epoch": 4},
+    "important_report_discrepancy": "optimizer=auto ignored reported lr0=0.01 and momentum=0.937; every legacy log shows AdamW lr=0.001429 and momentum=0.9"
+  },
+  "legacy_pseudo_logs": {
+    "id": {"frames_sampled": 720, "frames_accepted": 702, "boxes": 1690, "mean_confidence": 0.876, "class_counts": {"Empty": 470, "Tweezers": 651, "Needle_driver": 569}},
+    "ood": {"frames_sampled": 713, "frames_accepted": 667, "boxes": 2147, "mean_confidence": 0.732, "class_counts": {"Empty": 167, "Tweezers": 441, "Needle_driver": 1539}, "needle_driver_percentage": 71.681}
+  },
+  "legacy_ood_diagnostic_at_conf_0_50": {
+    "baseline": {"average_detections_per_frame": 2.04, "frames_more_than_2_pct": 17.7},
+    "ssl_id": {"average_detections_per_frame": 3.403, "frames_more_than_2_pct": 87.0},
+    "ssl_ood": {"average_detections_per_frame": 4.053, "frames_more_than_2_pct": 100.0},
+    "conclusion": "Legacy OOD self-training amplified persistent false positives; the final model is qualitatively and diagnostically worse than the supervised baseline on surg_1."
+  }
+}
