@@ -89,7 +89,7 @@ def main():
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     subtitle = doc.add_paragraph('Computer Vision \u2014 Surgical Applications, HW1')
     subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    authors = doc.add_paragraph('Authors: Raz Ben-Aharon \u2013 211623251, Alon Dvorkin \u2013 328374590')
+    authors = doc.add_paragraph('Authors: Raz Ben-Aharon and Shalev Manassen')
     authors.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     # ===== 1. EDA =====
